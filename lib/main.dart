@@ -29,11 +29,10 @@ class GeneratedNumbersPage extends StatefulWidget {
 
 class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
   final _random = Random();
-  int _numbersCount = 5;
-  int _maxNumber = 45;
-  int _numberOfSets = 3;
+  int _numbersCount = 5;  // Default value for numbers count
+  int _maxNumber = 45;    // Default value for max number
+  int _numberOfSets = 3;  // Default value for number of sets
   List<List<int>> _generatedSets = [];
-
   String _generatedNumbersLabel = '';
 
   final _numbersCountController = TextEditingController();
@@ -41,7 +40,7 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
   final _numberOfSetsController = TextEditingController();
 
   void _generateNumbers() {
-  // Validating input values before generating output
+    // Validating input values before generating output
   final parsedNumbersCount = int.tryParse(_numbersCountController.text);
   if (parsedNumbersCount == null || parsedNumbersCount < 1 || parsedNumbersCount > 6) {
     _showErrorDialog('Numbers count must be between 1 and 6');
@@ -73,7 +72,7 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
       }
       return numbersSet.toList()..sort();
     });
-    _generatedNumbersLabel = 'Generated Numbers ($_numbersCount out of $_maxNumber)'; 
+    _generatedNumbersLabel = 'Generated Numbers ($_numbersCount out of $_maxNumber)';
   });
 }
 
@@ -94,7 +93,6 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
     ),
   );
 }
-
 
 @override
   void dispose() {
@@ -182,4 +180,3 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
     );
   }
 }
-  
