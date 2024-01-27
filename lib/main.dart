@@ -44,21 +44,21 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
   // Validating input values before generating output
   final parsedNumbersCount = int.tryParse(_numbersCountController.text);
   if (parsedNumbersCount == null || parsedNumbersCount < 1 || parsedNumbersCount > 6) {
-  print('Numbers count must be between 1 and 6');
+  _showErrorDialog('Numbers count must be between 1 and 6');
   return;
 
   final parsedMaxNumber = int.tryParse(_maxNumberController.text);
   if (parsedMaxNumber == null || parsedMaxNumber < 1 || parsedMaxNumber > 100) {
-  print('Max number must be between 1 and 100');
+  _showErrorDialog('Max number must be between 1 and 100');
   return;
 
   final parsedNumberOfSets = int.tryParse(_numberOfSetsController.text);
   if (parsedNumberOfSets == null || parsedNumberOfSets < 1 || parsedNumberOfSets > 5) {
-  print('Number of sets must be between 1 and 5');
+  _showErrorDialog('Number of sets must be between 1 and 5');
   return;
   }     
 
-    setState(() {
+setState(() {
       _generatedSets = List.generate(_numberOfSets, (_) {
         final numbersSet = <int>{};
         while (numbersSet.length < _numbersCount) {
@@ -68,6 +68,25 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
       });
     });
   }
+
+
+void _showErrorDialog(String message) {
+  showDialog(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: Text('Invalid Input'),
+      content: Text(message),
+      actions: <Widget>[
+        TextButton(
+          child: Text('Okay'),
+          onPressed: () {
+            Navigator.of(ctx).pop();
+          },
+        ),
+      ],
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
