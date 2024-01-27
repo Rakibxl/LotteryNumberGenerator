@@ -34,6 +34,11 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
   int _numberOfSets = 3;
   List<List<int>> _generatedSets = [];
 
+
+  final _numbersCountController = TextEditingController();
+  final _maxNumberController = TextEditingController();
+  final _numberOfSetsController = TextEditingController();
+
   // Function to generate random sets of numbers
   void _generateNumbers() {
     setState(() {
@@ -108,7 +113,7 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
             Card(
               color: Colors.lightGreenAccent,
               child: ListTile(
-                title: const Text('Rakib Ahmed\n301343511r'),
+                title: const Text('Rakib Ahmed\n301343511'),
               ),
             ),
           ],
