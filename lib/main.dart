@@ -160,7 +160,7 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
                   final setNumbers = _generatedSets[index];
                   final formattedNumbers = setNumbers.join(', ');
                   return Card(
-                    color: Colors.yellowAccent,
+                    color: Colors.lime,
                     child: ListTile(
                       title: Text('Set ${index + 1}: $formattedNumbers'),
                     ),
