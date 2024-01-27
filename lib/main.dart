@@ -73,7 +73,7 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
       }
       return numbersSet.toList()..sort();
     });
-    _generatedNumbersLabel = 'Generated Numbers ($_numbersCount out of $_maxNumber)';
+    _generatedNumbersLabel = 'Generated Numbers ($_numbersCount out of $_maxNumber)'; 
   });
 }
 
@@ -115,33 +115,33 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
         child: Column(
           children: <Widget>[
             TextField(
+              controller: _numbersCountController,
               decoration: InputDecoration(
                 labelText: 'Numbers Count (1...6)',
                 border: const OutlineInputBorder(),
                 hintText: '5',
               ),
               keyboardType: TextInputType.number,
-              onChanged: (value) => _numbersCount = int.tryParse(value) ?? 5,
             ),
             const SizedBox(height: 8.0),
             TextField(
+              controller: _maxNumberController,
               decoration: InputDecoration(
                 labelText: 'Max number (1...100)',
                 border: const OutlineInputBorder(),
-                hintText: '45',
+                hintText: '45',  
               ),
               keyboardType: TextInputType.number,
-              onChanged: (value) => _maxNumber = int.tryParse(value) ?? 45,
             ),
             const SizedBox(height: 8.0),
             TextField(
+              controller: _numberOfSetsController,
               decoration: InputDecoration(
                 labelText: 'Number of sets (1...5)',
                 border: const OutlineInputBorder(),
                 hintText: '3',
               ),
               keyboardType: TextInputType.number,
-              onChanged: (value) => _numberOfSets = int.tryParse(value) ?? 3,
             ),
             const SizedBox(height: 8.0),
             ElevatedButton(
@@ -149,14 +149,22 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
               child: const Text('Generate'),
             ),
             const SizedBox(height: 8.0),
+            if (_generatedSets.isNotEmpty)
+              Text(
+                _generatedNumbersLabel,
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            const SizedBox(height: 8.0),
             Expanded(
               child: ListView.builder(
                 itemCount: _generatedSets.length,
                 itemBuilder: (context, index) {
+                  final setNumbers = _generatedSets[index];
+                  final formattedNumbers = setNumbers.join(', ');
                   return Card(
                     color: Colors.yellowAccent,
                     child: ListTile(
-                      title: Text('Set ${index + 1}: ${_generatedSets[index].join(', ')}'),
+                      title: Text('Set ${index + 1}: $formattedNumbers'),
                     ),
                   );
                 },
@@ -165,7 +173,7 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
             Card(
               color: Colors.lightGreenAccent,
               child: ListTile(
-                title: const Text('Rakib Ahmed\n301343511'),
+                title: const Text('Rakib Ahmed\n301243511'),
               ),
             ),
           ],
