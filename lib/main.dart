@@ -30,7 +30,7 @@ class GeneratedNumbersPage extends StatefulWidget {
 class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
   final _random = Random();
   int _numbersCount = 5;  // Default value for numbers count
-  int _maxNumber = 45;    // Default value for max number
+  int _maxNumber = 11;    // Default value for max number
   int _numberOfSets = 3;  // Default value for number of sets
   List<List<int>> _generatedSets = [];
   String _generatedNumbersLabel = '';
@@ -41,28 +41,28 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
 
   void _generateNumbers() {
     // Validating input values before generating output
-  final parsedNumbersCount = int.tryParse(_numbersCountController.text);
-  if (parsedNumbersCount == null || parsedNumbersCount < 1 || parsedNumbersCount > 6) {
+final int parsedNumbersCount = int.tryParse(_numbersCountController.text) ?? _numbersCount;
+  if (parsedNumbersCount < 1 || parsedNumbersCount > 6) {
     _showErrorDialog('Numbers count must be between 1 and 6');
     return;
   }
 
-  final parsedMaxNumber = int.tryParse(_maxNumberController.text);
-  if (parsedMaxNumber == null || parsedMaxNumber < 1 || parsedMaxNumber > 100) {
+  final parsedMaxNumber = int.tryParse(_maxNumberController.text) ?? _maxNumber;
+  if ( parsedMaxNumber < 1 || parsedMaxNumber > 100) {
     _showErrorDialog('Max number must be between 1 and 100');
     return;
   }
 
-  final parsedNumberOfSets = int.tryParse(_numberOfSetsController.text);
-  if (parsedNumberOfSets == null || parsedNumberOfSets < 1 || parsedNumberOfSets > 5) {
+  final parsedNumberOfSets = int.tryParse(_numberOfSetsController.text) ?? _numberOfSets;
+  if ( parsedNumberOfSets < 1 || parsedNumberOfSets > 5) {
     _showErrorDialog('Number of sets must be between 1 and 5');
     return;
   }
 
   setState(() {
-    _numbersCount = parsedNumbersCount;
-    _maxNumber = parsedMaxNumber;
-    _numberOfSets = parsedNumberOfSets;
+     _numbersCount = parsedNumbersCount ?? _numbersCount;
+    _maxNumber = parsedMaxNumber ?? _maxNumber;
+    _numberOfSets = parsedNumberOfSets ?? _numberOfSets;
 
     _generatedSets = List.generate(_numberOfSets, (_) {
       final numbersSet = <int>{};
@@ -127,7 +127,7 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
               decoration: InputDecoration(
                 labelText: 'Max number (1...100)',
                 border: const OutlineInputBorder(),
-                hintText: '45',  
+                hintText: '11',  
               ),
               keyboardType: TextInputType.number,
             ),
