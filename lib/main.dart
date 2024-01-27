@@ -34,43 +34,50 @@ class _GeneratedNumbersPageState extends State<GeneratedNumbersPage> {
   int _numberOfSets = 3;
   List<List<int>> _generatedSets = [];
 
+  String _generatedNumbersLabel = '';
+
   final _numbersCountController = TextEditingController();
   final _maxNumberController = TextEditingController();
   final _numberOfSetsController = TextEditingController();
 
-  // Function to generate random sets of numbers
   void _generateNumbers() {
-  
   // Validating input values before generating output
   final parsedNumbersCount = int.tryParse(_numbersCountController.text);
   if (parsedNumbersCount == null || parsedNumbersCount < 1 || parsedNumbersCount > 6) {
-  _showErrorDialog('Numbers count must be between 1 and 6');
-  return;
+    _showErrorDialog('Numbers count must be between 1 and 6');
+    return;
+  }
 
   final parsedMaxNumber = int.tryParse(_maxNumberController.text);
   if (parsedMaxNumber == null || parsedMaxNumber < 1 || parsedMaxNumber > 100) {
-  _showErrorDialog('Max number must be between 1 and 100');
-  return;
+    _showErrorDialog('Max number must be between 1 and 100');
+    return;
+  }
 
   final parsedNumberOfSets = int.tryParse(_numberOfSetsController.text);
   if (parsedNumberOfSets == null || parsedNumberOfSets < 1 || parsedNumberOfSets > 5) {
-  _showErrorDialog('Number of sets must be between 1 and 5');
-  return;
-  }     
-
-setState(() {
-      _generatedSets = List.generate(_numberOfSets, (_) {
-        final numbersSet = <int>{};
-        while (numbersSet.length < _numbersCount) {
-          numbersSet.add(_random.nextInt(_maxNumber) + 1);
-        }
-        return numbersSet.toList();
-      });
-    });
+    _showErrorDialog('Number of sets must be between 1 and 5');
+    return;
   }
 
+  setState(() {
+    _numbersCount = parsedNumbersCount;
+    _maxNumber = parsedMaxNumber;
+    _numberOfSets = parsedNumberOfSets;
 
-void _showErrorDialog(String message) {
+    _generatedSets = List.generate(_numberOfSets, (_) {
+      final numbersSet = <int>{};
+      while (numbersSet.length < _numbersCount) {
+        final randomNumber = _random.nextInt(_maxNumber) + 1;
+        numbersSet.add(randomNumber);
+      }
+      return numbersSet.toList()..sort();
+    });
+    _generatedNumbersLabel = 'Generated Numbers ($_numbersCount out of $_maxNumber)';
+  });
+}
+
+ void _showErrorDialog(String message) {
   showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
@@ -87,6 +94,15 @@ void _showErrorDialog(String message) {
     ),
   );
 }
+
+
+@override
+  void dispose() {
+    _numbersCountController.dispose();
+    _maxNumberController.dispose();
+    _numberOfSetsController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,3 +174,4 @@ void _showErrorDialog(String message) {
     );
   }
 }
+  
